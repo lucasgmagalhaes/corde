@@ -1,6 +1,6 @@
 {
   "name": "corde",
-  "version": "4.0.4",
+  "version": "4.1.0-beta.5",
   "description": "A simple library for Discord bot tests",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -38,6 +38,7 @@
     "corde": "node ./bin/corde",
     "killProcess": "cd ./etc && bash ./build_and_kill.sh",
     "e2e": "jest --config ./e2e/jest.config.ts --runInBand",
+    "run-logger-example": "ts-node ./tests/loggerConsoleTest.ts",
     "test-with-coverage": "jest --silent --ci --detectOpenHandles --collect-coverage --collectCoverageFrom=src/**/*.ts",
     "refresh": "rm -rf ./node_modules ./package-lock.json && yarn install",
     "fix-lint": "eslint --fix ./src ./tests",

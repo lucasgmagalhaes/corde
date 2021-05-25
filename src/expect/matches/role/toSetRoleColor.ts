@@ -46,7 +46,7 @@ export class ToSetRoleColor extends ExpectTest {
     let role: Role;
 
     try {
-      role = await this.cordeBot.events.onceRoleUpdateColor(identifier, this.timeOut, this.guildId);
+      role = await this.cordeBot.events.onceRoleUpdateColor(identifier, this.timeout, this.guildId);
     } catch {
       if (this.isNot) {
         return this.createPassTest();

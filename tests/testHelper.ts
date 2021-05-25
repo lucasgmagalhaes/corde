@@ -6,8 +6,8 @@ import { CordeBot } from "../src/core/cordeBot";
 import { ICordeBot, ITest, ITestFile, TestFunctionType, ITestReport } from "../src/types";
 import { ExpectTest } from "../src/expect/matches/expectTest";
 import { IExpectTestBaseParams } from "../src/types";
-import { runtime } from "../src/common/runtime";
 import { buildReportMessage } from "../src/utils";
+import { runtime } from "../src/environment";
 
 export const normalTsPath = path.resolve(process.cwd(), "corde.ts");
 export const tempTsPath = path.resolve(process.cwd(), "__corde.ts");
@@ -198,7 +198,7 @@ export function _initTestSimpleInstance<T extends ExpectTest>(
     channelId: params.channelId,
     guildId: params.guildId ?? runtime.guildId,
     isNot: params.isNot ?? false,
-    timeout: params.timeout ?? runtime.timeOut,
+    timeout: params.timeout ?? runtime.timeout,
     isCascade: params.isCascade ?? false,
   });
 }
@@ -214,7 +214,7 @@ export namespace testUtils {
       isNot: params.isNot ?? false,
       channelId: params.channelId ?? runtime.channelId,
       guildId: params.guildId ?? runtime.guildId,
-      timeout: params.timeout ?? runtime.timeOut,
+      timeout: params.timeout ?? runtime.timeout,
       isCascade: params.isCascade ?? false,
     });
   }

@@ -5,7 +5,7 @@ import { createReport, initCordeClientWithChannel, testUtils } from "../../testH
 import { ICordeBot, ITestReport } from "../../../src/types";
 import { buildReportMessage } from "../../../src/utils";
 import { MockEvents } from "../../mocks/mockEvents";
-import { runtime } from "../../../src/common/runtime";
+import { runtime } from "../../../src/environment";
 
 let mockDiscord = new MockDiscord();
 
@@ -97,7 +97,7 @@ describe("testing ToRenameRole operation", () => {
   it("should fail due to no role was renamed", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
 
     const toRename = initTestClass(corde, false);
     const report = await toRename.action("newName", { id: "123" });
@@ -116,7 +116,7 @@ describe("testing ToRenameRole operation", () => {
   it("should return true due to isNot true and no role change", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
 
     const toRename = initTestClass(corde, true);
     const report = await toRename.action("newName", { id: "123" });
@@ -130,7 +130,7 @@ describe("testing ToRenameRole operation", () => {
   it("should return true due to role has changed the name (isNot false)", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const mockEvent = new MockEvents(corde, mockDiscord);
     mockEvent.mockOnceRoleRenamed(mockDiscord.role);
     const toRename = initTestClass(corde, false);
@@ -145,7 +145,7 @@ describe("testing ToRenameRole operation", () => {
   it("should return a not passed test due to name should not change (isNot true)", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const mockEvent = new MockEvents(corde, mockDiscord);
     mockEvent.mockOnceRoleRenamed(mockDiscord.role);
     const toRename = initTestClass(corde, true);
@@ -165,7 +165,7 @@ describe("testing ToRenameRole operation", () => {
   it("should return a not passed test due expected name did not match to received", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const mockEvent = new MockEvents(corde, mockDiscord);
     mockEvent.mockOnceRoleRenamed(mockDiscord.role);
     const toRename = initTestClass(corde, false);

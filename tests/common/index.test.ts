@@ -1,6 +1,6 @@
 import { Config } from "../../src/common/config";
 import { testCollector } from "../../src/common/testCollector";
-import { runtime } from "../../src/common/runtime";
+import { runtime } from "../../src/environment";
 
 describe("Define tests for index of common module", () => {
   it("Should import runtime", () => {

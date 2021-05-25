@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { runtime } from "../../src/common/runtime";
 import { testCollector } from "../../src/common/testCollector";
 import { reader } from "../../src/core/reader";
+import { logger, runtime } from "../../src/environment";
 import { FileError } from "../../src/errors";
 import { beforeStart as _beforeStart } from "../../src/hooks";
 import { ITestFile } from "../../src/types";
@@ -74,6 +74,7 @@ describe("reader class", () => {
           await reader.getTestsFromFiles(null);
           fail();
         } catch (error) {
+          logger.log(error);
           expect(error).toBeInstanceOf(FileError);
         }
       });

@@ -327,9 +327,22 @@ export class Queue<T extends GenericFunction> {
   }
 
   /**
-   * Gets the first functions queued or null if there no functions queued.
+   * Gets the first functions queued or throws a error if
+   * empty.
    */
   first() {
+    const value = this.firstOrDefault();
+    if (value) {
+      return value;
+    }
+    throw new Error("Queue has no value");
+  }
+
+  /**
+   * Gets the first value of the queue or null if it's
+   * empty
+   */
+  firstOrDefault() {
     if (!this.hasFunctions) {
       return null;
     }
@@ -338,11 +351,7 @@ export class Queue<T extends GenericFunction> {
     return keyValue[1];
   }
 
-  private checkFunctionArgumentsSize(fn: GenericFunction | null, argsToPass: any[]) {
-    if (!fn) {
-      return;
-    }
-
+  private checkFunctionArgumentsSize(fn: GenericFunction, argsToPass: any[]) {
     if (fn.length !== argsToPass.length) {
       throw new Error(
         `Could not pass more arguments ${argsToPass.length} than what the function ${fn.name} supports ${fn.length}`,

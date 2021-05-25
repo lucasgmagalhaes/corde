@@ -18,7 +18,6 @@ import { wait as _wait } from "./wait";
 import { LogUpdate as _logUpdate } from "./logUpdate";
 import { calcPermissionsValue as _calcPermissionsValue } from "./permission";
 import { resolveName as _resolveName } from "./resolveName";
-import { shortPathForPlataform as _shortPathForPlataform } from "./shortPathForPlataform";
 import { isInDebugMode as _isInDebugMode } from "./isInDebugMode";
 import { getFiles as _getFiles } from "./getFiles";
 
@@ -43,7 +42,6 @@ export namespace utils {
   export const wait = _wait;
   export const LogUpdate = _logUpdate;
   export const calcPermissionsValue = _calcPermissionsValue;
-  export const shortPathForPlataform = _shortPathForPlataform;
   export const isInDebugMode = _isInDebugMode;
   export const getFiles = _getFiles;
 }

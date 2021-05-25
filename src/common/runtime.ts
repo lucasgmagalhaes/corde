@@ -1,9 +1,10 @@
-import { IConfigOptions, ICordeBot, TestFunctionType } from "../types";
+import { IConfigOptions, ICordeBot, IMockInstance, TestFunctionType } from "../types";
 import { Config } from "./config";
 import { Client } from "discord.js";
 import { CordeBot } from "../core/cordeBot";
 import { ConfigError } from "../errors";
 import { DEFAULT_TEST_TIMEOUT } from "../consts";
+import { logger } from "../environment";
 
 const Environment = {
   isUnityTest: process.env.ENV === "UNITY_TEST",
@@ -13,12 +14,8 @@ const Environment = {
 /**
  * @internal
  */
-class Runtime {
+export class Runtime {
   get bot() {
-    if (!this._bot) {
-      this._bot = this.initBot();
-    }
-
     return this._bot;
   }
 
@@ -46,6 +43,10 @@ class Runtime {
     return this._configs.botTestId;
   }
 
+  get silent() {
+    return this._configs.silent;
+  }
+
   get botToken() {
     return this._configs.botToken;
   }
@@ -58,8 +59,8 @@ class Runtime {
     return this._configs.guildId;
   }
 
-  get timeOut() {
-    return this._configs.timeOut ?? DEFAULT_TEST_TIMEOUT;
+  get timeout() {
+    return this._configs.timeout ?? DEFAULT_TEST_TIMEOUT;
   }
 
   get botPrefix() {
@@ -74,27 +75,21 @@ class Runtime {
     return this._configs.modulePathIgnorePatterns;
   }
 
-  private constructor() {
+  constructor() {
     this._configs = new Config();
+    this._mocks = [];
   }
 
-  private static _instance: Runtime;
   configFilePath!: string;
   files!: string[];
 
   private readonly _configs: Config;
   private _bot!: ICordeBot;
-
-  static getInstance() {
-    if (!Runtime._instance) {
-      Runtime._instance = new Runtime();
-    }
-    return Runtime._instance;
-  }
+  private _mocks: Array<IMockInstance<any, any, any>>;
 
   setConfigs(_configs: Partial<IConfigOptions>, forceUpdate?: boolean) {
     if (!_configs) {
-      throw new ConfigError("Invalid _configs");
+      throw new ConfigError("Invalid configs");
     }
 
     this._configs.setConfigs(_configs, forceUpdate);
@@ -107,12 +102,28 @@ class Runtime {
     return this.bot && this.bot.isLoggedIn();
   }
 
+  initBotFromConfigs() {
+    this._bot = new CordeBot(
+      this._configs.botPrefix,
+      this._configs.guildId,
+      this._configs.channelId,
+      this._configs.botTestId,
+      new Client(),
+    );
+  }
+
   /**
    * Shortcut for *bot.logout*
    */
   logoffBot() {
     if (this._bot) {
       this._bot.logout();
+    }
+  }
+
+  printLoggerIfNotSilent() {
+    if (!this.silent) {
+      logger.printStacks();
     }
   }
 
@@ -124,19 +135,11 @@ class Runtime {
     return fn(this.bot);
   }
 
-  initBot() {
-    return new CordeBot(
-      this._configs.botPrefix,
-      this._configs.guildId,
-      this._configs.channelId,
-      this._configs.botTestId,
-      new Client(),
-    );
+  addMock(mock: IMockInstance<any, any, any>) {
+    this._mocks.push(mock);
+  }
+
+  resetAllMocks() {
+    this._mocks.forEach((mock) => mock.restore());
   }
 }
-
-/**
- * Singleton of Runtime.
- */
-const runtime = Runtime.getInstance();
-export { runtime };

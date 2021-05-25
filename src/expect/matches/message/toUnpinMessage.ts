@@ -38,7 +38,7 @@ export class ToUnPinMessage extends MessageExpectTest {
 
     const msgString = this.humanizeMessageIdentifierObject(_msgIdentifier);
     try {
-      await this.cordeBot.events.onceMessageUnPinned(_msgIdentifier, this.timeOut, this.channelId);
+      await this.cordeBot.events.onceMessageUnPinned(_msgIdentifier, this.timeout, this.channelId);
     } catch {
       if (this.isNot) {
         return this.createPassTest();

@@ -5,8 +5,7 @@ import { ToRemoveReaction } from "../../../src/expect/matches";
 import { ICordeBot, ITestReport } from "../../../src/types";
 import { buildReportMessage, typeOf } from "../../../src/utils";
 import { MockEvents } from "../../mocks/mockEvents";
-import { runtime } from "../../../src/common/runtime";
-import { TimeoutError } from "../../../src/errors";
+import { runtime } from "../../../src/environment";
 
 describe("testing toRemoveReaction function", () => {
   let mockDiscord = new MockDiscord();
@@ -118,7 +117,7 @@ describe("testing toRemoveReaction function", () => {
   });
 
   it("should return a passed test with isNot = true", async () => {
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     const cordeClient = initCordeClientWithChannel(mockDiscord, new Client(), 1000);
     cordeClient.sendTextMessage = jest.fn().mockReturnValue(mockDiscord.message);
     const toRemoveReaction = initTestClass(cordeClient, true);
@@ -134,7 +133,7 @@ describe("testing toRemoveReaction function", () => {
   });
 
   it("should return a failed test with isNot = false", async () => {
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     const cordeClient = initCordeClientWithChannel(mockDiscord, new Client(), 1000);
     cordeClient.sendTextMessage = jest.fn().mockReturnValue(mockDiscord.message);
     const toRemoveReaction = initTestClass(cordeClient, false);
@@ -154,7 +153,7 @@ describe("testing toRemoveReaction function", () => {
   });
 
   it("should return a failed test with isNot = false and timeout", async () => {
-    runtime.setConfigs({ timeOut: 10 });
+    runtime.setConfigs({ timeout: 10 });
     const cordeClient = initCordeClientWithChannel(mockDiscord, new Client(), 1000);
     cordeClient.sendTextMessage = jest.fn().mockReturnValue(mockDiscord.message);
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -176,7 +175,7 @@ describe("testing toRemoveReaction function", () => {
   });
 
   it("should return a passed test with isNot = false", async () => {
-    runtime.setConfigs({ timeOut: 10 });
+    runtime.setConfigs({ timeout: 10 });
     const cordeClient = initCordeClientWithChannel(mockDiscord, new Client(), 1000);
     cordeClient.sendTextMessage = jest.fn().mockReturnValue(mockDiscord.message);
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -194,7 +193,7 @@ describe("testing toRemoveReaction function", () => {
   });
 
   it("should return a failed test with isNot = true and emoji object with id and other with name", async () => {
-    runtime.setConfigs({ timeOut: 10 });
+    runtime.setConfigs({ timeout: 10 });
     const cordeClient = initCordeClientWithChannel(mockDiscord, new Client(), 1000);
     cordeClient.sendTextMessage = jest.fn().mockReturnValue(mockDiscord.message);
     const events = new MockEvents(cordeClient, mockDiscord);

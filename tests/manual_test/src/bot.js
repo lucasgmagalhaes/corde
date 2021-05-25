@@ -43,6 +43,7 @@ async function handleCommands(message, command) {
  * @param {string} msgId
  */
 async function ping(msg) {
+  console.log("adasd");
   await msg.channel.send("pong");
 }
 

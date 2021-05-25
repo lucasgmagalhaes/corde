@@ -1,0 +1,18 @@
+# Auto detect text files and perform LF normalization
+*        text=auto
+
+# Always perform LF normalization on these files
+*.html   text
+*.json   text
+*.md     text
+*.txt    text
+*.xml    text
+*.yaml   text
+
+# Make sure that these Windows files always have CRLF line endings in checkout
+*.sh    text eol=lf
+*.js    text eol=lf
+
+# Never perform LF normalization on these files
+*.ico    binary
+*.png    binary

@@ -58,7 +58,7 @@ export class ToRemoveReaction extends ExpectTest {
       reactionsWithAuthors = await this.cordeBot.events.onceMessageReactionsRemove({
         emojis: emojiLike,
         messageIdentifier: _messageData,
-        timeout: this.timeOut,
+        timeout: this.timeout,
         channelId: this.channelId,
       });
     } catch (error) {

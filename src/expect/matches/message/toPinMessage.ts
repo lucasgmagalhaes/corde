@@ -38,7 +38,7 @@ export class ToPinMessage extends MessageExpectTest {
 
     const msgString = this.humanizeMessageIdentifierObject(_msgIdentifier);
     try {
-      await this.cordeBot.events.onceMessagePinned(_msgIdentifier, this.timeOut, this.channelId);
+      await this.cordeBot.events.onceMessagePinned(_msgIdentifier, this.timeout, this.channelId);
     } catch {
       if (this.isNot) {
         return this.createPassTest();

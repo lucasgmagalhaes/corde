@@ -1096,7 +1096,7 @@ export class Events {
     if (response.length === 1) {
       return response[0];
     }
-    return (response as unknown) as T;
+    return response as unknown as T;
   }
 
   private _onRoleUpdateWithTimeout(

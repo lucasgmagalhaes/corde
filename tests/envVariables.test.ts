@@ -1,4 +1,4 @@
-import { initEnvVariables } from "../src/envVariables";
+import { initEnvVariables } from "../src/environment";
 
 describe("check initialization of env variable", () => {
   it("should set NODE_ENV to 'test'", () => {

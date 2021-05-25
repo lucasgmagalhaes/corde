@@ -14,10 +14,11 @@ export class Config implements IConfigOptions {
   botToken!: string;
   channelId!: string;
   guildId!: string;
-  timeOut?: number;
+  timeout?: number;
   botPrefix!: string;
   testMatches!: string[];
   modulePathIgnorePatterns?: string[];
+  silent!: boolean;
 
   /**
    * Set values to config options that are not **filed** yet
@@ -26,11 +27,11 @@ export class Config implements IConfigOptions {
    *
    * @example
    * const config = new Config();
-   * config.timeOut = 1000;
+   * config.timeout = 1000;
    *
    * const newConfig: IConfigOptions = { ...timeOut: 3000 };
    * config.setConfigs(newConfig);
-   * console.log(config.timeOut) // print 1000;
+   * console.log(config.timeout) // print 1000;
    *
    * @param config new set of configs.
    */
@@ -59,16 +60,20 @@ export class Config implements IConfigOptions {
       this.guildId = config.guildId;
     }
 
-    if (!this.timeOut || forceUpdate) {
-      if (config.timeOut) {
-        this.timeOut = config.timeOut;
+    if (!this.timeout || forceUpdate) {
+      if (config.timeout) {
+        this.timeout = config.timeout;
       } else {
-        this.timeOut = DEFAULT_TEST_TIMEOUT;
+        this.timeout = DEFAULT_TEST_TIMEOUT;
       }
     }
 
     if (config.botPrefix && (!this.botPrefix || forceUpdate)) {
       this.botPrefix = config.botPrefix;
+    }
+
+    if (config.silent && (!this.silent || forceUpdate)) {
+      this.silent = config.silent;
     }
 
     if (config.modulePathIgnorePatterns && (!this.modulePathIgnorePatterns || forceUpdate)) {

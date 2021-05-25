@@ -1,6 +1,6 @@
 import chalk from "chalk";
-import { runtime } from "../common/runtime";
 import { Queue } from "../data-structures";
+import { runtime } from "../environment";
 import { VoidLikeFunction } from "../types";
 import { executePromiseWithTimeout, formatObject } from "../utils";
 
@@ -28,7 +28,7 @@ export function hookBuilder(params: HookParams) {
         } catch (error) {
           reject(error);
         }
-      }, timeout ?? runtime.timeOut);
+      }, timeout ?? runtime.timeout);
     } catch (error) {
       let newError: Error;
       const errorLabel = chalk.bgRed(`● ${errorTitle}`);

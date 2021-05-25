@@ -1,11 +1,11 @@
 import { reader } from "../../src/core/reader";
 import * as validateFn from "../../src/cli/validate";
 import { exec } from "../../src/cli/exec";
-import { FileError } from "../../src/errors";
-import { runtime } from "../../src/common/runtime";
+import { FileError, PropertyError } from "../../src/errors";
 import { TestExecutor } from "../../src/core/testExecutor";
 import { summary } from "../../src/core/summary";
 import { mockProcess } from "../mocks";
+import { runtime } from "../../src/environment";
 
 jest.mock("ora", () => {
   const spinner = {
@@ -20,6 +20,27 @@ jest.mock("../../src/core/testExecutor.ts");
 TestExecutor.prototype.runTestsAndPrint = jest.fn().mockImplementation(() => Promise.resolve({}));
 
 describe("testing default command", () => {
+  it.only("should throw exception due to no files", async () => {
+    const readerSpy = jest.spyOn(reader, "loadConfig");
+    readerSpy.mockReturnValue({
+      silent: true,
+      botPrefix: "!",
+      botTestId: "123123123",
+      channelId: "123123123",
+      cordeBotToken: "12312112312",
+      guildId: "12312312",
+      testMatches: [],
+      botToken: "123123",
+      timeout: 1000,
+    });
+
+    try {
+      await exec();
+    } catch (error) {
+      expect(error instanceof PropertyError).toBeTruthy();
+    }
+  });
+
   it("Should read a file folder", async () => {
     const exitMock = mockProcess.mockProcessExit();
     const readerSpy = jest.spyOn(reader, "loadConfig");
@@ -31,6 +52,7 @@ describe("testing default command", () => {
     validateSpy.mockImplementation(() => null);
 
     readerSpy.mockReturnValue({
+      silent: true,
       botPrefix: "!",
       botTestId: "123123123",
       channelId: "123123123",
@@ -38,7 +60,7 @@ describe("testing default command", () => {
       guildId: "12312312",
       testMatches: ["tests/cli/testFolder"],
       botToken: "123123",
-      timeOut: 1000,
+      timeout: 1000,
     });
 
     await exec();

@@ -1,16 +1,11 @@
 import { Client } from "discord.js";
-import { runtime } from "../../src/common/runtime";
 import { IToHaveResult } from "../../src/expect/matches/toHaveResult";
 import { ICordeBot, TestFunctionType, ITestReport } from "../../src/types";
 import MockDiscord from "../mocks/mockDiscord";
 import { MockEvents } from "../mocks/mockEvents";
-import {
-  createReport,
-  initCordeClientWithChannel,
-  removeANSIColorStyle,
-  testUtils,
-} from "../testHelper";
+import { initCordeClientWithChannel, removeANSIColorStyle, testUtils } from "../testHelper";
 import { expect as _expect } from "../../src/expect";
+import { runtime } from "../../src/environment";
 
 let mockDiscord = new MockDiscord();
 let mockEvents: MockEvents;
@@ -35,7 +30,7 @@ function initTestClass(cordeBot: ICordeBot, isNot: boolean, command?: string) {
     isCascade: false,
     cordeBot: cordeBot,
     isNot: isNot,
-    timeout: runtime.timeOut,
+    timeout: runtime.timeout,
   });
 }
 
@@ -79,7 +74,7 @@ describe("testing todoInCascade function", () => {
   });
 
   it("should return failed due to timeout and isNot false", async () => {
-    runtime.setConfigs({ timeOut: 100 });
+    runtime.setConfigs({ timeout: 100 });
     const corde = initClient();
     const todoInCascade = initTestClass(corde, false);
 

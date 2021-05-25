@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import { runtime } from "../../../src/common/runtime";
+import { runtime } from "../../../src/environment";
 import { ToSetRolePosition } from "../../../src/expect/matches";
 import { ICordeBot, ITestReport } from "../../../src/types";
 import { buildReportMessage, typeOf } from "../../../src/utils";
@@ -14,7 +14,7 @@ function initClient() {
   corde.findRole = jest.fn().mockReturnValue(mockDiscord.role);
   corde.fetchRole = jest.fn().mockReturnValue(mockDiscord.role);
   corde.sendTextMessage = jest.fn().mockImplementation(() => {});
-  runtime.setConfigs({ timeOut: 100 }, true);
+  runtime.setConfigs({ timeout: 100 }, true);
   return corde;
 }
 
@@ -154,7 +154,7 @@ describe("testing ToSetRolePosition operation", () => {
   it("should return a passed report due to timeout and isNot true", async () => {
     const corde = createCordeBotWithMockedFunctions();
 
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     corde.findRole = jest.fn().mockReturnValue(mockDiscord.role);
     const toSetPosition = initTestClass(corde, true);
     const report = await toSetPosition.action(-2, { id: "123" });
@@ -167,7 +167,7 @@ describe("testing ToSetRolePosition operation", () => {
   it("should return a failed report due to timeout and isNot false", async () => {
     const corde = createCordeBotWithMockedFunctions();
 
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     corde.findRole = jest.fn().mockReturnValue(mockDiscord.role);
     const toSetPosition = initTestClass(corde, false);
     const report = await toSetPosition.action(-2, { id: "123" });
@@ -186,7 +186,7 @@ describe("testing ToSetRolePosition operation", () => {
   it("should return a failed report position setted was different than expected", async () => {
     const corde = createCordeBotWithMockedFunctions();
 
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     corde.findRole = jest.fn().mockReturnValue(mockDiscord.role);
 
     const mockEvent = new MockEvents(corde, mockDiscord);

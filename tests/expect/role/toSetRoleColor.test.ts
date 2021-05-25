@@ -1,6 +1,5 @@
-import chalk, { Color } from "chalk";
 import { Client } from "discord.js";
-import { runtime } from "../../../src/common/runtime";
+import { runtime } from "../../../src/environment";
 import { ToSetRoleColor } from "../../../src/expect/matches";
 import { ICordeBot, ITestReport } from "../../../src/types";
 import { buildReportMessage, Colors, resolveColor } from "../../../src/utils";
@@ -82,7 +81,7 @@ describe("testing toSetRoleColor", () => {
   it("should fail due to role hadn't color changed", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
 
     const toSetRoleColor = initTestClass(corde, false);
     const report = await toSetRoleColor.action(Colors.NAVY, { id: "123" });
@@ -107,7 +106,7 @@ describe("testing toSetRoleColor", () => {
   it("should return true due to isNot true and no role change", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
 
     const toSetRoleColor = initTestClass(corde, true);
     const report = await toSetRoleColor.action(Colors.GREY, { id: "123" });
@@ -121,7 +120,7 @@ describe("testing toSetRoleColor", () => {
   it("should return true due to role has changed the color (isNot false)", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const mockEvent = new MockEvents(corde, mockDiscord);
     mockEvent.mockOnceRoleUpdateColor(mockDiscord.role);
     const toSetRoleColor = initTestClass(corde, false);
@@ -136,7 +135,7 @@ describe("testing toSetRoleColor", () => {
   it("should return a not passed test due to color should not change (isNot true)", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const mockEvent = new MockEvents(corde, mockDiscord);
     mockEvent.mockOnceRoleUpdateColor(mockDiscord.role);
     const toSetRoleColor = initTestClass(corde, false);
@@ -162,7 +161,7 @@ describe("testing toSetRoleColor", () => {
   it("should return a not passed test due expected name did not match to received", async () => {
     const corde = initClient();
 
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const mockEvent = new MockEvents(corde, mockDiscord);
     mockEvent.mockOnceRoleUpdateColor(mockDiscord.role);
     const toSetRoleColor = initTestClass(corde, false);

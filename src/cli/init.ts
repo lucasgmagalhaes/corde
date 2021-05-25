@@ -1,18 +1,20 @@
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
+import { logger } from "../environment";
 import { FileError } from "../errors";
-import { IConfigOptions, configFileType } from "../types";
+import { IConfigOptions, ConfigFileType } from "../types";
 
 const config: IConfigOptions = {
   botPrefix: "",
+  silent: false,
   botTestId: "",
   channelId: "",
   cordeBotToken: "",
   guildId: "",
   testMatches: [""],
   botToken: "",
-  timeOut: 5000,
+  timeout: 5000,
 };
 
 const configString = JSON.stringify(config);
@@ -39,7 +41,7 @@ const tsFile = jsFile;
  *
  * @throws Error if could not create the config file
  */
-export function init(fileType: configFileType = "json") {
+export function init(fileType: ConfigFileType = "json") {
   let fileContent = "";
 
   // No declaration of fileType is considered 'json'
@@ -55,7 +57,7 @@ export function init(fileType: configFileType = "json") {
   } else if (fileType === "ts") {
     fileContent = tsFile;
   } else {
-    console.log(
+    logger.log(
       ` - ${chalk.bold(fileType)} is not a valid type. Use '${chalk.bold(
         "init --help",
       )}' to check valid types`,
@@ -67,7 +69,7 @@ export function init(fileType: configFileType = "json") {
     const filePath = path.resolve(process.cwd(), fileName);
     fileContent = formatFile(fileContent, fileType);
     fs.writeFileSync(filePath, fileContent);
-    console.log(
+    logger.log(
       `- ${chalk.green("Successfully")} generated corde config in ${chalk.bold(filePath)}`,
     );
   } catch (error) {
@@ -77,7 +79,7 @@ export function init(fileType: configFileType = "json") {
   }
 }
 
-function formatFile(file: string, type: configFileType) {
+function formatFile(file: string, type: ConfigFileType) {
   let formater: "object" | "json" = "json";
 
   if (type === "js" || type === "ts") {

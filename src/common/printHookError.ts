@@ -1,3 +1,4 @@
+import { logger } from "../environment";
 import { buildReportMessage, formatObject, LogUpdate } from "../utils";
 
 /**
@@ -22,5 +23,5 @@ function print(message: string, log?: LogUpdate) {
     log.append(message);
     return;
   }
-  console.log(message);
+  logger.log(message);
 }

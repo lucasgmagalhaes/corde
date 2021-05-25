@@ -33,9 +33,9 @@ import {
 import { ExpectTest } from "./matches/expectTest";
 import { buildReportMessage, resolveName, stringIsNullOrEmpty } from "../utils";
 import { getStackTrace } from "../utils/getStackTrace";
-import { runtime } from "../common/runtime";
 import { IMacherContructorArgs, MayReturnMatch, IExpectTestBaseParams } from "../types";
 import { IToHaveResult } from "./matches/toHaveResult";
+import { runtime } from "../environment";
 
 class BaseMatcher {
   protected _commandName: unknown;
@@ -76,7 +76,7 @@ class BaseMatcher {
       cordeBot,
       command: commandName,
       isNot: this._isNot,
-      timeout: runtime.timeOut,
+      timeout: runtime.timeout,
       isCascade: this._isCascade,
       guildId: this._guildId ?? runtime.guildId,
       channelId: this._channelId ?? runtime.channelId,
@@ -125,7 +125,8 @@ class BaseMatcher {
 
 export class MessageMatchesImpl<TReturn extends MayReturnMatch>
   extends BaseMatcher
-  implements IMessageMatches<TReturn> {
+  implements IMessageMatches<TReturn>
+{
   toReturn(expect: Primitive | IMessageEmbed) {
     const trace = getStackTrace(undefined, true, "toReturn");
     return this.returnOrAddToCollector((cordeBot) =>
@@ -191,7 +192,8 @@ export class ToHaveResultMatcher extends BaseMatcher {
 
 export class RoleMatchesImpl<TReturn extends MayReturnMatch>
   extends BaseMatcher
-  implements IRoleMatches<TReturn> {
+  implements IRoleMatches<TReturn>
+{
   toRenameRole(newName: string, roleIdentifier: IRoleIdentifier | string) {
     const trace = getStackTrace(undefined, true, "toRenameRole");
     return this.returnOrAddToCollector((cordeBot) => {

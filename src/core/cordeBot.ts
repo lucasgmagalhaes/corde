@@ -246,6 +246,10 @@ export class CordeBot implements ICordeBot {
   }
 
   findGuild(guildId: string) {
+    if (!guildId) {
+      throw new CordeClientError("Guild id can not be undefined. Check your configs");
+    }
+
     if (!this._client.guilds) {
       throw new CordeClientError(
         `corde bot isn't added in a guild. Please add it to the guild: ${guildId}`,
@@ -273,6 +277,10 @@ export class CordeBot implements ICordeBot {
   }
 
   findChannel(guild: Guild, channelId: string) {
+    if (!channelId) {
+      throw new CordeClientError("channel id can not be undefined");
+    }
+
     if (!guild.channels) {
       throw new CordeClientError(`Guild '${guild.name}' do not have any channel.`);
     } else if (!guild.channels.cache.has(channelId)) {

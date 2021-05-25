@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import { runtime } from "../../../src/common/runtime";
+import { runtime } from "../../../src/environment";
 import { ToUnPinMessage } from "../../../src/expect/matches";
 import { ICordeBot, ITestReport } from "../../../src/types";
 import { buildReportMessage, typeOf } from "../../../src/utils";
@@ -60,7 +60,7 @@ describe("testing unpin message test", () => {
   });
 
   it("should return a passed test due to isNot true and timeout", async () => {
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     const corde = createCordeBotWithMockedFunctions(mockDiscord, new Client());
     const toUnPinMessage = initTestClass(corde, true);
     const report = await toUnPinMessage.action("1233");
@@ -75,7 +75,7 @@ describe("testing unpin message test", () => {
   });
 
   it("should return a failed test due to isNot false and timeout", async () => {
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     const corde = createCordeBotWithMockedFunctions(mockDiscord, new Client());
     const toUnPinMessage = initTestClass(corde, false);
     const report = await toUnPinMessage.action("1233");
@@ -95,7 +95,7 @@ describe("testing unpin message test", () => {
   });
 
   it("should return a failed test due to isNot false and timeout (messageIdentifier)", async () => {
-    runtime.setConfigs({ timeOut: 10 }, true);
+    runtime.setConfigs({ timeout: 10 }, true);
     const corde = createCordeBotWithMockedFunctions(mockDiscord, new Client());
     const toUnPinMessage = initTestClass(corde, false);
     const report = await toUnPinMessage.action({ id: "1233" });

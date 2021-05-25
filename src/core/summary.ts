@@ -1,4 +1,5 @@
 import { TEXT_EMPTY, TEXT_FAIL, TEXT_PASS } from "../consts";
+import { logger } from "../environment";
 import { IRunnerReport } from "../types";
 
 interface ISummaryLine {
@@ -17,7 +18,7 @@ class Summary {
     if (runnerReport.testTimer) {
       message += "Time:       " + runnerReport.testTimer;
     }
-    console.log(message);
+    logger.log(message);
     return message;
   }
 

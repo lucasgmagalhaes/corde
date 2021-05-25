@@ -4,7 +4,7 @@
   "description": "",
   "main": "bot.js",
   "scripts": {
-    "test": "node ../bin/corde"
+    "test": "node ../../bin/corde"
   },
   "author": "Lucas Gomes",
   "license": "ISC",

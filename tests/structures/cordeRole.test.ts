@@ -112,6 +112,12 @@ describe("testing cordeRole", () => {
     expect(setColorMock).toHaveBeenCalledWith(4095);
   });
 
+  it("shouldn't do anything due to no data passed", async () => {
+    const editMock = jest.spyOn(role, "edit");
+    await cordeRole.update(null);
+    expect(editMock).not.toBeCalled();
+  });
+
   it("should call original setPermissions", async () => {
     const setPermissionsMock = jest
       .spyOn(role, "setPermissions")

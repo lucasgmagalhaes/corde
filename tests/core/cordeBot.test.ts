@@ -4,7 +4,7 @@ import MockDiscord from "../mocks/mockDiscord";
 import { initCordeClient, initCordeClientWithChannel } from "../testHelper";
 import { ToReturn } from "../../src/expect/matches";
 import { MockEvents } from "../mocks/mockEvents";
-import { runtime } from "../../src/common/runtime";
+import { runtime } from "../../src/environment";
 
 const DEFAULT_PREFIX = "!";
 const mockDiscord = new MockDiscord();

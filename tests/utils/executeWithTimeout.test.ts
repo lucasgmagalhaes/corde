@@ -1,4 +1,4 @@
-import { executeWithTimeout } from "../../src/utils";
+import { executeWithTimeout, utils } from "../../src/utils";
 
 describe("testing executeWithTimeout function", () => {
   it("should execute normal function", async () => {
@@ -22,4 +22,10 @@ describe("testing executeWithTimeout function", () => {
     const response = await executeWithTimeout(async () => await fn(), 100);
     expect(response).toEqual(2);
   });
+
+  it("should execute without timeout due to debug mode", async () => {
+    jest.spyOn(utils, "isInDebugMode").mockImplementation(() => true);
+    const result = await executeWithTimeout(async () => Promise.resolve(2), 10000000);
+    expect(result).toEqual(2);
+  }, 200);
 });

@@ -1,0 +1,27 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "outDir": "build",
+    "declaration": false,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "preserveConstEnums": true
+  },
+  "include": [
+    "src/**/*",
+    "./*.ts",
+    "./*.js",
+    "real-bot-example/bot.test.js",
+    "real-bot-example/bot.js"
+  ],
+  "exclude": ["./tests/**/*.spec.ts", "node_modules/**/*"]
+}

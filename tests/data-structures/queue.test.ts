@@ -563,9 +563,20 @@ describe("testing queue structure", () => {
     });
   });
 
+  describe("testing firstOrDefault", () => {
+    it("should get first value", () => {
+      numberQueue.enqueue(() => 1);
+      expect(numberQueue.firstOrDefault()).toBeTruthy();
+    });
+
+    it("should get first value", () => {
+      expect(numberQueue.firstOrDefault()).toBeFalsy();
+    });
+  });
+
   describe("testing first function", () => {
     it("first should not return something", () => {
-      expect(numberQueue.first()).toBeFalsy();
+      expect(numberQueue.first).toThrowError();
     });
 
     it("first should return something", () => {

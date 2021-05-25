@@ -1,8 +1,8 @@
 import { IRoleIdentifier } from "../types";
 import { Role } from "discord.js";
-import { runtime } from "../common/runtime";
 import { CordeClientError } from "../errors";
 import { CordeRole } from "../structures/cordeRole";
+import { runtime } from "../environment";
 
 /**
  * Finds a role in config guild's cache, basing on it's **id**

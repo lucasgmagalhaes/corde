@@ -56,7 +56,7 @@ export class ToSetRolePermission extends ExpectTest {
     try {
       role = await this.cordeBot.events.onceRolePermissionUpdate(
         identifier,
-        this.timeOut,
+        this.timeout,
         this.guildId,
       );
     } catch {

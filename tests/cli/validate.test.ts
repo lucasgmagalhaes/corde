@@ -6,6 +6,7 @@ let configs: IConfigOptions;
 
 beforeEach(() => {
   configs = {
+    silent: true,
     botPrefix: "!",
     botTestId: "12122216892126544",
     channelId: "12316351316252291",
@@ -13,7 +14,7 @@ beforeEach(() => {
     guildId: "21685198465498",
     testMatches: ["./tests/dirTestFiles/**"],
     botToken: "1f77a63e0f60f3bf420edf67bfa3915b",
-    timeOut: 5000,
+    timeout: 5000,
   };
 });
 

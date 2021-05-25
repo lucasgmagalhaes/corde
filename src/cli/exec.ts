@@ -1,10 +1,10 @@
 import chalk from "chalk";
 import ora, { Color, Ora } from "ora";
-import { runtime } from "../common/runtime";
 import { testCollector } from "../common/testCollector";
 import { reader } from "../core/reader";
 import { summary } from "../core/summary";
 import { TestExecutor } from "../core/testExecutor";
+import { logger, runtime } from "../environment";
 import { LogUpdate } from "../utils/logUpdate";
 import { validate } from "./validate";
 
@@ -18,7 +18,7 @@ process.on("uncaughtException", () => {
   stopLoading();
 });
 
-let spinner: Ora;
+export let spinner: Ora;
 
 export async function exec() {
   await loadConfigs();
@@ -27,8 +27,9 @@ export async function exec() {
 
 async function loadConfigs() {
   const configs = reader.loadConfig();
+  await validate(configs);
   runtime.setConfigs(configs);
-  await validate(runtime.configs);
+  runtime.initBotFromConfigs();
 }
 
 async function runTests() {
@@ -54,8 +55,10 @@ async function runTests() {
     const executionReport = await testRunner.runTestsAndPrint(testMatches);
 
     if (runtime.environment.isE2eTest) {
-      console.log(log.stdout);
+      logger.log(log.stdout);
     }
+
+    runtime.printLoggerIfNotSilent();
 
     summary.print(executionReport);
 
@@ -66,7 +69,7 @@ async function runTests() {
     }
   } catch (error) {
     spinner.stop();
-    console.error(error);
+    logger.error(error);
     await finishProcess(1);
   }
 }
@@ -74,13 +77,13 @@ async function runTests() {
 async function finishProcess(code: number, error?: any): Promise<never> {
   try {
     if (error) {
-      console.log(error);
+      logger.log(error);
     }
 
     if (testCollector.afterAllFunctions.hasFunctions) {
       const exceptions = await testCollector.afterAllFunctions.executeWithCatchCollectAsync();
       if (exceptions.length) {
-        console.log(...exceptions);
+        logger.log(...exceptions);
         code = 1;
       }
     }

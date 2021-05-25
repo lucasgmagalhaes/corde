@@ -57,7 +57,7 @@ export class ToAddReaction extends ExpectTest {
         authorId: this.cordeBot.testBotId,
         emojis: emojiLike,
         messageIdentifier: _messageData,
-        timeout: this.timeOut,
+        timeout: this.timeout,
         channelId: this.channelId,
       });
     } catch (error) {

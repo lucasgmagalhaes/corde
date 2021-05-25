@@ -21,18 +21,20 @@ export async function validate(configs: IConfigOptions) {
 
   const errors: string[] = [];
 
-  addToErrorsIfPropertyIsMissing(configs.botPrefix, errors, "bot prefix");
-  addToErrorsIfPropertyIsMissing(configs.botTestId, errors, "bot test ID");
-  addToErrorsIfPropertyIsMissing(configs.channelId, errors, "channel ID");
-  addToErrorsIfPropertyIsMissing(configs.cordeBotToken, errors, "corde token");
-  addToErrorsIfPropertyIsMissing(configs.guildId, errors, "guild ID");
-  addToErrorsIfPropertyIsMissing(configs.botToken, errors, "bot test token");
+  addToErrorsIfPropertyIsMissing(configs.botPrefix, errors, "botPrefix");
+  addToErrorsIfPropertyIsMissing(configs.botTestId, errors, "botTestId");
+  addToErrorsIfPropertyIsMissing(configs.channelId, errors, "channelId");
+  addToErrorsIfPropertyIsMissing(configs.cordeBotToken, errors, "cordeBotToken");
+  addToErrorsIfPropertyIsMissing(configs.guildId, errors, "guildId");
+  addToErrorsIfPropertyIsMissing(configs.botToken, errors, "botToken");
   await validatePaths(configs.testMatches, errors);
 
   let errorsString = "";
 
   if (errors.length > 0) {
-    errorsString = chalk.red("\n● Corde validation report:\n  ");
+    errorsString = chalk.red(
+      "\n● Corde validation report: see https://corde.netlify.app/docs/configurations \n  ",
+    );
 
     if (errors.length === 1) {
       errorsString += chalk.red("an required property is missing in config file:\n");
@@ -74,7 +76,6 @@ function addToErrorsIfPropertyIsMissing(
 }
 
 function buildMissingPropertiesErrorAndThrow(errorString: string, erros: string[]) {
-  erros.forEach((error) => (errorString += `\n    ${chalk.red(`- ${error}`)}`));
-  errorString += "\n";
+  erros.forEach((error) => (errorString += `  ${chalk.red(`- ${error}`)}\n`));
   throw new PropertyError(errorString);
 }

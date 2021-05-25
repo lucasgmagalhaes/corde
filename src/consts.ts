@@ -27,7 +27,7 @@ export const TAG_PASS = (text = "PASS") => {
   return chalk.bgGreen(chalk.black(` ${text} `)) + " ";
 };
 
-export const TEST_RUNNING_ICON = "●";
+export const DOT = "●";
 
 // This must be a adicional space because the icon gets overlayed by the text.
 export const TEST_PASSED_ICON = TEXT_PASS("✔ ");

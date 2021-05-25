@@ -1,5 +1,7 @@
-import { runtime } from "./common/runtime";
+import { spinner } from "./cli/exec";
 import { testCollector } from "./common/testCollector";
+import { logger, runtime } from "./environment";
+import { PropertyError } from "./errors";
 import { exit } from "./exit";
 
 export function initErrorHandlers() {
@@ -17,10 +19,12 @@ export function initErrorHandlers() {
 }
 
 async function printErrorAndExit(error: Error) {
-  if (error instanceof Error) {
-    console.error(error.message);
+  spinner?.stop();
+
+  if (error instanceof PropertyError) {
+    logger.error(error.message);
   } else {
-    console.error(error);
+    logger.error(error.stack);
   }
 
   if (runtime.isBotLoggedIn()) {

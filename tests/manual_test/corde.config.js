@@ -15,7 +15,7 @@ if (!process.env.CI && result.error) {
 }
 
 const botPrefix = process.env.BOT_PREFIX;
-const botTestId = process.env.BOT_TEST_ID;
+const botTestId = "";
 const channelId = process.env.CHANNEL_ID;
 const cordeBotToken = process.env.CORDE_TEST_TOKEN;
 const guildId = process.env.GUILD_ID;

@@ -18,7 +18,7 @@ export abstract class ExpectTest {
   protected readonly isNot: boolean;
   protected readonly command: string | number | boolean;
   protected readonly cordeBot: ICordeBot;
-  protected readonly timeOut: number;
+  protected readonly timeout: number;
   protected readonly testName: string;
   protected readonly isCascade: boolean;
   protected readonly guildId: string | undefined;
@@ -47,7 +47,7 @@ export abstract class ExpectTest {
     this.command = command;
     this.cordeBot = cordeBot;
     this.hasPassed = false;
-    this.timeOut = timeout;
+    this.timeout = timeout;
     this.testName = testName;
     this.isCascade = isCascade ?? false;
     this.guildId = guildId;

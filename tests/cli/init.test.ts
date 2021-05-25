@@ -1,6 +1,7 @@
 import { init } from "../../src/cli/init";
 import { FsMockUtils } from "../mockUtils/fs";
-import { IConfigOptions, IJSONFile } from "../../src/types";
+import { IConfigOptions } from "../../src/types";
+import { logger } from "../../src/environment";
 
 // As there are a local config file for manual tests,
 // These files are renamed to avoid remotion after finish
@@ -46,9 +47,9 @@ describe("Testing creation of config file in init", () => {
   it("should print msg error if invalid file extension was informed", () => {
     let outputData = "";
     const storeLog = (inputs: string) => (outputData += inputs);
-    console.log = jest.fn(storeLog);
+    logger.log = jest.fn(storeLog);
     const invalidExtension = "asdf";
-    // @ts-expect-error
+    // @ts-ignore
     init(invalidExtension);
     expect(outputData).not.toBe("");
   });
@@ -63,7 +64,8 @@ describe("Testing content of config file in init", () => {
     guildId: "",
     testMatches: [""],
     botToken: "",
-    timeOut: 5000,
+    timeout: 5000,
+    silent: false,
   };
 
   it("should js file have same values of configFile", () => {

@@ -1,16 +1,17 @@
-import { runtime } from "../../src/common/runtime";
 import { DEFAULT_TEST_TIMEOUT } from "../../src/consts";
+import { runtime } from "../../src/environment";
 
 import { IConfigOptions } from "../../src/types";
 
 const config: IConfigOptions = {
   botPrefix: "!",
+  silent: true,
   botTestId: "123",
   channelId: "1241241",
   cordeBotToken: "321",
   guildId: "123",
   testMatches: ["123"],
-  timeOut: DEFAULT_TEST_TIMEOUT,
+  timeout: DEFAULT_TEST_TIMEOUT,
   botToken: "12412412123124",
 };
 
@@ -35,6 +36,7 @@ describe("Testing runtime", () => {
 
   it("should call bot.logout", () => {
     runtime.setConfigs(config);
+    runtime.initBotFromConfigs();
     const spy = jest.spyOn(runtime.bot, "logout");
     runtime.logoffBot();
     expect(spy).toBeCalledTimes(1);
@@ -42,6 +44,7 @@ describe("Testing runtime", () => {
 
   it("should call bot.login", async (done) => {
     runtime.setConfigs(config);
+    runtime.initBotFromConfigs();
     const spy = jest.spyOn(runtime.bot, "login");
     try {
       await runtime.loginBot("13");
@@ -76,9 +79,9 @@ describe("Testing runtime", () => {
     expect(runtime.guildId).toBe(config.guildId);
   });
 
-  it("should get timeOut", () => {
+  it("should get timeout", () => {
     runtime.setConfigs(config);
-    expect(runtime.timeOut).toBe(config.timeOut);
+    expect(runtime.timeout).toBe(config.timeout);
   });
 
   it("should get botPrefix", () => {

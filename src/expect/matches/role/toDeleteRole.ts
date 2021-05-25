@@ -29,14 +29,14 @@ export class ToDeleteRole extends ExpectTest {
     }
 
     try {
-      await this.cordeBot.events.onceRoleDelete(identifier, this.timeOut, this.guildId);
+      await this.cordeBot.events.onceRoleDelete(identifier, this.timeout, this.guildId);
     } catch {
       if (this.isNot) {
         return this.createPassTest();
       }
 
       return this.createReport(
-        `timeout: role ${role.id} wasn't deleted in the expected time (${this.timeOut})`,
+        `timeout: role ${role.id} wasn't deleted in the expected time (${this.timeout})`,
       );
     }
     const deletedRole = await this.cordeBot.fetchRole(role.id);

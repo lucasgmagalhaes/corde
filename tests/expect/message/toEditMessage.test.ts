@@ -4,8 +4,8 @@ import { createCordeBotWithMockedFunctions, testUtils } from "../../testHelper";
 import { ICordeBot, ITestReport } from "../../../src/types";
 import { ToEditMessage } from "../../../src/expect/matches";
 import { buildReportMessage, diff, formatObject } from "../../../src/utils";
-import { runtime } from "../../../src/common/runtime";
 import { MockEvents } from "../../mocks/mockEvents";
+import { runtime } from "../../../src/environment";
 
 let mockDiscord = new MockDiscord();
 
@@ -66,7 +66,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should fail due to message was not edited by the bot (no messageIdentifier)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const message = buildReportMessage(
@@ -88,7 +88,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should fail due to message was not edited by the bot (no messageIdentifier as string)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const message = buildReportMessage(
@@ -110,7 +110,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should fail due to message was not edited by the bot (no messageIdentifier as object with id)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const message = buildReportMessage(
@@ -132,7 +132,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should fail due to message was not edited by the bot (no messageIdentifier as object with content)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const message = buildReportMessage(
@@ -154,7 +154,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get success test due to timeout but isNot = true", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const toEditMessage = initTestClass(cordeClient, "ping", true);
@@ -170,7 +170,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get success test due to bot returned equal message", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -190,7 +190,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get success test due to bot returned equal messages (string type)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -210,7 +210,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get success test due to bot returned equal messages (string number)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
     mockDiscord.message.content = "2";
 
@@ -231,7 +231,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get success test due to bot returned equal messages (type embed)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -251,7 +251,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get failed test due to bot returned equal messages (isNot true)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -275,7 +275,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get success test due to bot returned different messages (isNot true)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -295,7 +295,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get fail test due to bot returned different messages (both embed)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -325,7 +325,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get fail test due to bot returned different messages (expect primitive and returned embed)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const events = new MockEvents(cordeClient, mockDiscord);
@@ -351,7 +351,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get fail test due to bot returned different messages both primitive values", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
     const events = new MockEvents(cordeClient, mockDiscord);
     events.mockOnceMessageContentOrEmbedChange();
@@ -376,7 +376,7 @@ describe("testing toEditMessage", () => {
   });
 
   it("should get fail test due to bot returned different messages (expect embed and returned primitive)", async () => {
-    runtime.setConfigs({ timeOut: 100 }, true);
+    runtime.setConfigs({ timeout: 100 }, true);
     const cordeClient = createCordeBotWithMockedFunctions(mockDiscord, new Client());
 
     const mockEvent = new MockEvents(cordeClient, mockDiscord);

@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { runtime } from "../common/runtime";
 import { printHookErrors } from "../common/printHookError";
 import { testCollector } from "../common/testCollector";
+import { logger, runtime } from "../environment";
 import { FileError } from "../errors";
 import { IConfigOptions, ITestFilePattern, ITestFile } from "../types";
 import { utils } from "../utils";
@@ -53,7 +53,7 @@ class Reader {
       const matches = await utils.getFiles(filesPattern.filesPattern, filesPattern.ignorePattern);
       filesPath.push(...matches);
     } catch (error) {
-      console.log(error);
+      logger.log(error);
     }
 
     for (const file of filesPath) {
@@ -63,7 +63,7 @@ class Reader {
           require(file);
         }
       } catch (error) {
-        console.error(error);
+        logger.error(error);
         continue;
       }
 

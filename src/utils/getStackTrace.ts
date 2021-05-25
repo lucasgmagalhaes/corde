@@ -26,11 +26,18 @@ import { DEFAULT_STACK_TRACE_LIMIT, EXPECT_RECEIVED_TAB_SPACE } from "../consts"
  * @internal
  */
 export function getStackTrace(
-  stackLimit?: number,
+  stackLimit?: number | undefined | null,
   removeFirstStack = true,
   functionName?: string,
+  adicionalSpace?: string,
 ): string {
   const obj: any = {};
+
+  let space = EXPECT_RECEIVED_TAB_SPACE;
+
+  if (adicionalSpace) {
+    space += adicionalSpace;
+  }
 
   Error.prepareStackTrace = (_, calls) => {
     const stacksWithoutFirstCall = calls.slice(removeFirstStack ? 1 : 0);
@@ -41,13 +48,13 @@ export function getStackTrace(
     const formatFunctionName = functionName ? `${functionName} ` : "";
 
     const trace =
-      EXPECT_RECEIVED_TAB_SPACE +
+      space +
       "at " +
       formatFunctionName +
       stacksWithoutFirstCall
         .filter((s) => isStrackRelevant(s))
         .slice(0, stackLimit ?? DEFAULT_STACK_TRACE_LIMIT)
-        .join("\n" + EXPECT_RECEIVED_TAB_SPACE + "at ");
+        .join("\n" + space + "at ");
 
     // removes full path of the file for security.
     const formatedPath = process.cwd().replace(/\\/g, "\\\\");

@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import { runtime } from "../common/runtime";
 import { testCollector } from "../common/testCollector";
 import { printHookErrors } from "../common/printHookError";
 import {
@@ -9,7 +8,7 @@ import {
   TAG_PENDING,
   TEST_FAIL_ICON,
   TEST_PASSED_ICON,
-  TEST_RUNNING_ICON,
+  DOT,
   TEXT_EMPTY,
   TEXT_FAIL,
   TEXT_PASS,
@@ -26,6 +25,7 @@ import {
 } from "../types";
 import { formatObject, stringIsNullOrEmpty, Timer } from "../utils";
 import { LogUpdate } from "../utils";
+import { runtime } from "../environment";
 
 export class TestExecutor {
   private _logUpdate: LogUpdate;
@@ -64,6 +64,8 @@ export class TestExecutor {
       }
     }
     const testsDiff = testsTimer.stop();
+
+    runtime.printLoggerIfNotSilent();
 
     return {
       testTimer: testsDiff[0],
@@ -182,7 +184,7 @@ export class TestExecutor {
 
   private ITestReportLabelFunction(reports: ITestReport[]) {
     if (reports.length === 0) {
-      return (text: string) => TEXT_EMPTY(" " + TEST_RUNNING_ICON + " " + text + " (empty)");
+      return (text: string) => TEXT_EMPTY(" " + DOT + " " + text + " (empty)");
     }
 
     if (reports.some((report) => !report.pass)) {
@@ -221,7 +223,7 @@ export class TestExecutor {
   }
 
   private createTestTextByStatus(testName?: string | number | boolean) {
-    const icon = TEST_RUNNING_ICON;
+    const icon = DOT;
     return `${MESSAGE_TAB_SPACE}${icon} ${testName}`;
   }
 
@@ -257,6 +259,7 @@ export class TestExecutor {
 
       reports.push(_report);
     }
+
     return reports;
   }
 
