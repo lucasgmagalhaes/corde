@@ -91,7 +91,7 @@ namespace testUtils {
       fs.mkdirSync(fileDirName);
     }
 
-    fs.writeFileSync(fullFilePath.replace(".ts", ".txt"), data);
+    fs.writeFileSync(fullFilePath.replace(".ts", ".log"), data);
   }
 
   /**
@@ -108,7 +108,7 @@ namespace testUtils {
 
       const child = childProcess.exec(con, (error, stdout, stderr) => {
         if (error) {
-          resolve({ stdout: removeANSIColorStyle(stderr), exitCode: child.exitCode });
+          resolve({ stdout: removeANSIColorStyle(stdout), exitCode: child.exitCode });
         }
 
         if (stdout) {
@@ -116,7 +116,7 @@ namespace testUtils {
         }
 
         if (stderr) {
-          resolve({ stdout: removeANSIColorStyle(stderr), exitCode: child.exitCode });
+          resolve({ stdout: removeANSIColorStyle(stdout), exitCode: child.exitCode });
         }
       });
     });

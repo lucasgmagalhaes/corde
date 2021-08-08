@@ -1,0 +1,33 @@
+File: toDeleteRole\test2.spec.ts
+exit code: 1
+ RUNS   e2e/toDeleteRole/test2.spec.ts
+ RUNS   e2e/toDeleteRole/test2.spec.ts
+   ● should fail in delete a role
+ RUNS   e2e/toDeleteRole/test2.spec.ts
+   x should fail in delete a role   1.851s
+ RUNS   e2e/toDeleteRole/test2.spec.ts
+   x should fail in delete a role   1.851s
+    
+    timeout: role 874034290114039858 wasn't deleted in the expected time (1500)
+
+ RUNS   e2e/toDeleteRole/test2.spec.ts
+   x should fail in delete a role   1.851s
+    
+    timeout: role 874034290114039858 wasn't deleted in the expected time (1500)
+
+    at toDeleteRole Object.toDeleteRole (lib\src\expect\index.js:25:60)
+    at e2e\toDeleteRole\test2.spec.ts:7:45
+    at _internalTest (lib\src\closures\test.js:12:19)
+
+ FAIL    e2e/toDeleteRole/test2.spec.ts   1.855s
+   x should fail in delete a role   1.851s
+    
+    timeout: role 874034290114039858 wasn't deleted in the expected time (1500)
+
+    at toDeleteRole Object.toDeleteRole (lib\src\expect\index.js:25:60)
+    at e2e\toDeleteRole\test2.spec.ts:7:45
+    at _internalTest (lib\src\closures\test.js:12:19)
+
+Test Files: 1 failed. 1 total
+Tests:      1 failed. 1 total
+Time:       1.857s

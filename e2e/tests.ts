@@ -107,18 +107,18 @@ const testFiles: ITestFile[] = [
     testFile: "test2.spec.ts",
     exitCodeExpectation: 1,
   },
-  // {
-  //   id: 15,
-  //   folder: "toDeleteRole",
-  //   testFile: "test1.spec.ts",
-  //   exitCodeExpectation: 0,
-  // },
-  // {
-  //   id: 16,
-  //   folder: "toDeleteRole",
-  //   testFile: "test2.spec.ts",
-  //   exitCodeExpectation: 1,
-  // },
+  {
+    id: 15,
+    folder: "toDeleteRole",
+    testFile: "test1.spec.ts",
+    exitCodeExpectation: 0,
+  },
+  {
+    id: 16,
+    folder: "toDeleteRole",
+    testFile: "test2.spec.ts",
+    exitCodeExpectation: 1,
+  },
   // {
   //   id: 17,
   //   folder: "toEditMessage",

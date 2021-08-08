@@ -19,6 +19,7 @@
  */
 
 import chalk from "chalk";
+import path from "path";
 import { login, bot } from "./bot";
 import { generator } from "./tests";
 import testUtils from "./testUtils";
@@ -48,7 +49,7 @@ async function main() {
         const output = await testFn();
         console.log(chalk.cyanBright(`Output of: ${fileObj.testFile}\n`));
         console.log(output.stdout);
-        testUtils.saveOutput(fileObj.testFile, output);
+        testUtils.saveOutput(path.join(fileObj.folder, fileObj.testFile), output);
 
         if (output.exitCode !== fileObj.exitCodeExpectation) {
           console.log(
