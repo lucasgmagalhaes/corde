@@ -126,7 +126,7 @@
   "dependencies": {
     "chalk": "^4.1.1",
     "commander": "^8.0.0",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "esm": "^3.2.25",
     "fast-glob": "^3.2.5",
     "fast-json-stable-stringify": "^2.1.0",
